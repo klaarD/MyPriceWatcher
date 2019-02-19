@@ -24,14 +24,19 @@ public class MainActivity extends AppCompatActivity {
     private static final String STATE_ITEM = "items";
 
 
-    private TextView InitialPrice;
-    private TextView CurrentPrice;
-    private TextView PriceChange;
-    private EditText SourceText;
-    private Button BtnCalculate;
+    private TextView InitialPrice; // textView to store InitialPrice of the item
+    private TextView CurrentPrice; // textView to store and set CurrentPrice of the item
+    private TextView PriceChange; // textView to store and set PriceChange of the item
+    private EditText SourceText;  // EditText to store and set source of the item
+    private Button BtnCalculate; // Button used to calculate new current price of the item
 
-    private ArrayList<Item> items;
+    private ArrayList<Item> items; // list of the items - just one item
 
+    /**
+     * Method Sets initial values to the variable
+     * Displays set values
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,8 +44,7 @@ public class MainActivity extends AppCompatActivity {
         String action =getIntent().getAction();
         String type = getIntent().getType();
         if (Intent.ACTION_SEND.equalsIgnoreCase(action) && type != null && ("text/plain".equals(type))){
-            String url = getIntent().getStringExtra(Intent.EXTRA_TEXT);
-            Source  = url;
+            Source  = getIntent().getStringExtra(Intent.EXTRA_TEXT);
         }
 
         setContentView(R.layout.activity_main);
@@ -64,14 +68,21 @@ public class MainActivity extends AppCompatActivity {
         SetPrices();
     }
 
+    /**
+     * Method saves items so the app can continue with the same values
+     * when the rotation of the display is changed
+     * @param outState
+     */
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        // Make sure to call the super method so that the states of our views are saved
         super.onSaveInstanceState(outState);
-        // Save our own state now
         outState.putSerializable(STATE_ITEM, items);
     }
 
+    /**
+     * Method sets variables InitialPrice, CurrentPrice and PriceChange
+     * sets them to current value of the values saved in Item instance
+     */
     private void SetPrices(){
         InitialPrice.setText("Initial Price: $" + items.get(0).getInitialPrice());
         CurrentPrice.setText("Current Price: $" + items.get(0).getCurrentPrice());
@@ -87,6 +98,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Method calculates new CurrentPrice of the item
+     * @param view
+     */
     protected void CalculateClicked(View view){
         items.get(0).CalculateNewPrice();
         SetPrices();
