@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">My Price Watcher</string>
+    <string name="priceChange">Price Change: +7%</string>
+    <string name="currentPrice">Current Price: $160</string>
+    <string name="itemName">Mountain Bike</string>
+    <string name="initialPrice">Initial Price: $150</string>
+    <string name="source">Source:</string>
+    <string name="url">item url</string>
+    <string name="calculateButton">Calculate New Price</string>
 </resources>
