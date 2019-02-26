@@ -1,5 +1,6 @@
-package edu.utep.cs.cs4330.mypricewatcher;
+package edu.utep.cs.cs4330.mypricewatcher.Model;
 
+import java.io.Serializable;
 import java.util.Random;
 
 
@@ -7,7 +8,7 @@ import java.util.Random;
  * Class specifies methods for finding new price of a product based on a specified source value
  * In this iteration only random prices are generated
  */
-public class PriceFinder {
+public class PriceFinder implements Serializable{
 
     public static final int FIRST = 130; // lower bound of random number generation
     public static final int LAST = 170; //higher bound of random number generation

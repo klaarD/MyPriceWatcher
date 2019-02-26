@@ -1,10 +1,12 @@
-package edu.utep.cs.cs4330.mypricewatcher;
+package edu.utep.cs.cs4330.mypricewatcher.Model;
+
+import java.io.Serializable;
 
 /**
  * Item --- class to store one concrete item
  * @author Klara Dvorakova
  */
-public class Item {
+public class Item implements Serializable {
 
     private int InitialPrice; // initial price of the item
     private int CurrentPrice; //current price (the last calculated one) of the item
@@ -16,7 +18,7 @@ public class Item {
      * Constructor of class Item
      * @param Source A varivable of a type String, URL of the item
      */
-    Item(String Source){
+    public Item(String Source){
         this.Source = Source;
         InitialPrice = priceFinder.getPrice(Source);
         CurrentPrice = InitialPrice;
@@ -65,7 +67,8 @@ public class Item {
      * sets ChangePrice variable to new value
      */
     private void CalculateChange(){
-        ChangePrice = (CurrentPrice*100/InitialPrice)-100;
+        double tmp = (CurrentPrice*100/InitialPrice)-100;
+        ChangePrice = (int) Math.round(tmp);
     }
 
 

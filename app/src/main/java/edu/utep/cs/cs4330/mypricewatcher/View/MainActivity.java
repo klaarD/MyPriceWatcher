@@ -4,22 +4,28 @@
  *
  */
 
-package edu.utep.cs.cs4330.mypricewatcher;
+package edu.utep.cs.cs4330.mypricewatcher.View;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import edu.utep.cs.cs4330.mypricewatcher.Model.Item;
+import edu.utep.cs.cs4330.mypricewatcher.R;
+//AppCompatActivity
 public class MainActivity extends AppCompatActivity {
 
-    public String Source = "amazon.com/mountain_bike";
+    public String Source = "https://www.amazon.com/Roadmaster-Mens-Granite-Peak-Bike/dp/B07595ZKJ7?ref_=Oct_BSellerC_1265458011_1&pf_rd_p=7d71bf68-7381-557e-9029-f80176f72fa9&pf_rd_s=merchandised-search-6&pf_rd_t=101&pf_rd_i=1265458011&pf_rd_m=ATVPDKIKX0DER&pf_rd_r=MCTWQ50N5B1GHARSP65X&pf_rd_r=MCTWQ50N5B1GHARSP65X&pf_rd_p=7d71bf68-7381-557e-9029-f80176f72fa9";
 
     private static final String STATE_ITEM = "items";
 
@@ -29,7 +35,8 @@ public class MainActivity extends AppCompatActivity {
     private TextView PriceChange; // textView to store and set PriceChange of the item
     private EditText SourceText;  // EditText to store and set source of the item
     private Button BtnCalculate; // Button used to calculate new current price of the item
-
+    private Button BtnWeb;
+    private ImageView image;
     private ArrayList<Item> items; // list of the items - just one item
 
     /**
@@ -54,6 +61,12 @@ public class MainActivity extends AppCompatActivity {
         PriceChange = findViewById(R.id.textViewChange);
         SourceText = findViewById(R.id.editTextSource);
         SourceText.setText(Source);
+
+        image = findViewById(R.id.imageView);
+        image.setVisibility(View.VISIBLE);
+
+        BtnWeb = findViewById(R.id.btnWeb);
+        BtnWeb.setOnClickListener(this::WebClicked);
 
         BtnCalculate = findViewById(R.id.buttonCalculate);
         BtnCalculate.setOnClickListener(this::CalculateClicked);
@@ -105,6 +118,11 @@ public class MainActivity extends AppCompatActivity {
     protected void CalculateClicked(View view){
         items.get(0).CalculateNewPrice();
         SetPrices();
+    }
+
+    protected void WebClicked(View view){
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(Source));
+        startActivity(browserIntent);
     }
 
 }
